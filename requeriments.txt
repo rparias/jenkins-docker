@@ -1,0 +1,22 @@
+Before to build the Dockerfile:
+mkdir ~/jenkins_home
+sudo ln -s ~/jenkins_home /var
+
+After the container is running
+Solving docker permissions denied:
+We connect to the container with 
+docker-compose exec jenkins bash 
+
+1. Give permmisions to jenkins user
+docker-compose exec -u 0 jenkins bash
+usermod -aG docker jenkins
+chmod 666 /var/run/docker.sock
+sudo service docker restart
+docker-compose exec jenkins bash
+We need to logout and login again, and we’ll rerun docker ps
+
+2. Install the following plugins on jenkins:
+ - Docker
+ - Docker Pipeline
+
+3. Run!!
