@@ -8,9 +8,15 @@ services:
         HOST_UID: ${HOST_UID}
         HOST_GID: ${HOST_GID}
     restart: unless-stopped
+    environment:
+      - JAVA_OPTS=-Dhudson.model.DirectoryBrowserSupport.CSP=
+      - TZ=America/Guayaquil
     volumes:
       - ${HOST_DOCKER}:/var/run/docker.sock
       - ${HOST_JENKINS_DATA}:/var/jenkins_home
+      - ${KNOWN_HOSTS}:/var/jenkins_home/.ssh/known_host
+      - ${DIR_SSH}:/var/jenkins_home/.ssh/id_rsa
+      - ${DIR_SSH_PUB}:/var/jenkins_home/.ssh/id_rsa.pub
     ports:
       - '${HOST_WWW}:8080'
       - '${HOST_OTHER}:50000'
